@@ -1,0 +1,1 @@
+# pycatia-drawing-template
