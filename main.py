@@ -7,6 +7,8 @@
 
 import argparse
 
+from pycatia.drafting_interfaces.drawing_view import DrawingView
+
 from application.caa import caa
 from application.caa import get_active_drawing
 from application.border import create_border
@@ -14,6 +16,7 @@ from application.copyright_box import create_copyright_box
 from application.drawing import create_drawing
 from application.paper_size import get_sheet_size_info
 from application.parameters import create_parameters
+from application.purge import purge_background_view
 from application.settings import sheet_sizes
 from application.template_name import create_template_name
 from application.title_block import create_title_block
@@ -53,6 +56,9 @@ if __name__ == '__main__':
         for sheet in sheets:
             size_info = get_sheet_size_info(sheet)
 
+            # !! delete everything in the background view!!
+            purge_background_view(drawing, sheet)
+
             create_border(sheet, size_info)
             create_copyright_box(sheet, parameters)
             create_title_block(sheet, size_info, parameters, sheet_number)
@@ -61,4 +67,17 @@ if __name__ == '__main__':
             sheet.force_update()
             sheet_number += 1
 
-        drawing.update()
+        # activate the first sheet and main view.
+        # on border creation the main view is activated after work in the
+        # background view is completed yet it seems to have no effect on sheet 1.
+        # I even tried looping through the sheets to activate the main view but
+        # then this didn't work for sheet.2.
+        for sheet in sheets:
+            sheet.activate()
+            main_view = DrawingView(sheet.views.get_item_by_name('Main View').com_object)
+            main_view.activate()
+            viewer = caa.active_window
+            # fit all in.
+            viewer.active_viewer.reframe()
+        sheets[0].activate()
+

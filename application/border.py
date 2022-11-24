@@ -99,5 +99,3 @@ def create_border(sheet: DrawingSheet, size_info: dict):
         text_right = texts.add(char, sheet_x - (offset / 2), y_position)
         text_right.anchor_position = anchor_position
         set_text_properties(text_right)
-
-    main_view.activate()
