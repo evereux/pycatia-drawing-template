@@ -1,0 +1,12 @@
+.idea
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+test.py
+BlankDrawing.CATDrawing
+example.vba
+example_reference.py
