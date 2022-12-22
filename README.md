@@ -10,8 +10,8 @@ hurdles for those new to scripting with pycatia within the drafting workbench.
 ## Requirements
 * Windows 
 * CATIA V5 - 
-* python => 3.8
-* pycatia - https://github.com/evereux/pycatia
+* python >= 3.9
+* pycatia >= 0.5.7 - https://github.com/evereux/pycatia
   * You can either install pycatia within your own python development 
   environment or grab the pre-built binary available on the releases page.
 
